@@ -6,7 +6,20 @@ defmodule GhIssues.Cli do
   指定されたGitHubプロジェクトのissueの最新の _n_ 個を表形式で表示する
   """
   def run(argv) do
-    parse_args(argv)
+    argv
+    |> parse_args
+    |> process
+  end
+
+  def process(:help) do
+    IO.puts """
+      usage: gh_issues <user> <project> [count | #{@default_count}]
+    """
+    System.halt(0)
+  end
+
+  def process({ user, project, _count }) do
+    GhIssues.Issues.fetch(user, project)
   end
 
   @doc """
