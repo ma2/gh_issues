@@ -20,6 +20,21 @@ defmodule GhIssues.Cli do
 
   def process({ user, project, _count }) do
     GhIssues.Issues.fetch(user, project)
+    |> decode_response
+    |> convert_to_list_of_maps
+  end
+
+  def convert_to_list_of_maps(list) do
+    list
+    |> Enum.map(&Enum.info(&1, Map.new))
+  end
+
+  def decode_response({ :ok, body }), do: body
+
+  def decode_response({ :error, body }) do
+    { _, :message } = List.keyfind(error, "messaage", 0)
+    IO.puts "Error fetching from Github: #{message}"
+    System.halt(2)
   end
 
   @doc """
