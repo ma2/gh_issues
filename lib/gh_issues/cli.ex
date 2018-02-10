@@ -51,19 +51,19 @@ defmodule GhIssues.Cli do
 
   def decode_response({ :ok, body }), do: body
 
-  def decode_response({ :error, body }) do
-    { _, :message } = List.keyfind(error, "messaage", 0)
+  def decode_response({ :error, error }) do
+    { _, message } = List.keyfind(error, "message", 0)
     IO.puts "Error fetching from Github: #{message}"
     System.halt(2)
   end
 
   def convert_to_list_of_maps(list) do
     list
-    |> Enum.map(&Enum.info(&1, Map.new))
+    |> Enum.map(&Enum.into(&1, Map.new))
   end
 
   def sort_into_ascending_order(list_of_issues) do
-    Enum.sort list_of_issues, fn i1, i2 -> i1["created_at"] <= i2["created_at"] end
+    Enum.sort list_of_issues, fn i1, i2 -> i1[ "created_at" ] <= i2[ "created_at" ] end
   end
 
 end
