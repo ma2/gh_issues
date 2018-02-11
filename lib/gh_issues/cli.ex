@@ -6,7 +6,7 @@ defmodule GhIssues.Cli do
   コマンドラインを解析する
   指定されたGitHubプロジェクトのissueの最新の _n_ 個を表形式で表示する
   """
-  def run(argv) do
+  def main(argv) do
     argv
     |> parse_args
     |> process
