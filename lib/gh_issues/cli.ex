@@ -1,4 +1,5 @@
 defmodule GhIssues.Cli do
+  import GhIssues.TableFormatter, only: [ print_table_for_columns: 2 ]
   @default_count 4  # イコールを使わないことに注意
 
   @moduledoc """
@@ -24,6 +25,7 @@ defmodule GhIssues.Cli do
     |> convert_to_list_of_maps
     |> sort_into_ascending_order
     |> Enum.take(count)
+    |> print_table_for_columns([ "number", "created_at", "title" ])
   end
 
   @doc """
