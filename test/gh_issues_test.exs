@@ -3,6 +3,7 @@ defmodule GhIssuesTest do
   doctest GhIssues
 
   import GhIssues.Cli, only: [ parse_args: 1, sort_into_ascending_order: 1, convert_to_list_of_maps: 1 ]
+  import GhIssues.Issues, only: [ issues_url: 2 ]
 
   test "引数が-hか--helpのときは:helpが返ること" do
     assert parse_args([ "-h", "anything" ]) == :help
@@ -21,6 +22,11 @@ defmodule GhIssuesTest do
     result = sort_into_ascending_order(fake_created_at_list([ "c", "a", "b" ]))
     issues = for issue <- result, do: issue[ "created_at" ]
     assert issues == ~w{a b c}
+  end
+
+  test "正しいGithubのurlを返すこと" do
+    url = issues_url('ma2', 'gh_issues')
+    assert url == "https://api.github.com/repos/ma2/gh_issues/issues"
   end
 
   defp fake_created_at_list(values) do
