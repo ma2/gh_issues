@@ -8,6 +8,8 @@ defmodule GhIssues.MixProject do
       version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
+      name: "GhIssues",
+      source_url: "https://github.com/ma2/gh_issues",
       deps: deps()
     ]
   end
@@ -23,8 +25,10 @@ defmodule GhIssues.MixProject do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      { :httpoison, "~>1.0.0" },
-      { :poison, "~>3.1.0" }
+      httpoison: "~>1.0.0",
+      poison: "~>3.1.0",
+      ex_doc: "~>0.18.0",
+      earmark: "~>1.2.0",
       # {:dep_from_hexpm, "~> 0.3.0"},
       # {:dep_from_git, git: "https://github.com/elixir-lang/my_dep.git", tag: "0.1.0"},
     ]
